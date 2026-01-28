@@ -1,0 +1,13 @@
+{
+  "name": "melez-ai-studio",
+  "version": "2.0.0",
+  "description": "AI Video Generation Studio",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "vercel": "^32.0.0"
+  }
+}
