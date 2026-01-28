@@ -921,7 +921,7 @@
             if (!key) return alert('API key girin');
             
             try {
-                const response = await fetch('/api/youtube-proxy', {
+                const response = await fetch('/.netlify/functions/youtube-proxy', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
@@ -965,7 +965,7 @@
                 fill.style.width = '30%';
                 
                 // Fetch via proxy
-                const response = await fetch('/api/youtube-proxy', {
+                const response = await fetch('/.netlify/functions/youtube-proxy', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -1011,7 +1011,7 @@
             const source = document.getElementById('mediaSource').value;
             
             try {
-                const response = await fetch(`/api/media-proxy?source=${source}&query=${encodeURIComponent(query)}`);
+                const response = await fetch(`/.netlify/functions/media-proxy?source=${source}&query=${encodeURIComponent(query)}`);
                 const data = await response.json();
                 
                 const container = document.getElementById('mediaResults');
@@ -1303,3 +1303,4 @@
 </body>
 
 </html>
+
