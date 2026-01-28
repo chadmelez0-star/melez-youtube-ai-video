@@ -898,7 +898,7 @@
             if (!key) return alert('API key girin');
             
             try {
-                const response = await fetch('/api/gemini-proxy', {
+                const response = await fetch('/.netlify/functions/gemini-proxy', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ apiKey: key, prompt: 'Say "Test successful" in Turkish' })
@@ -979,7 +979,7 @@
                 fill.style.width = '60%';
                 
                 // AI Analysis
-                const aiResponse = await fetch('/api/gemini-proxy', {
+                const aiResponse = await fetch('/.netlify/functions/gemini-proxy', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -1054,7 +1054,7 @@
             try {
                 // 1. AI Content
                 fill.style.width = '20%';
-                const aiRes = await fetch('/api/gemini-proxy', {
+                const aiRes = await fetch('/.netlify/functions/gemini-proxy', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -1301,4 +1301,5 @@
         }
     </script>
 </body>
+
 </html>
