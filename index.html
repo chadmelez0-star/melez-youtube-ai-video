@@ -666,7 +666,7 @@
             btn.innerHTML = '<span class="loading"></span> Test ediliyor...';
             
             try {
-                const response = await fetch('/.netlify/functions/gemini-proxy', {
+                const response = await fetch('/api/gemini-proxy', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
@@ -697,7 +697,7 @@
         async function callGemini(prompt, temperature = 0.7) {
             if (!settings.geminiKey) throw new Error('Gemini API Key ayarlanmamış');
             
-            const response = await fetch('/.netlify/functions/gemini-proxy', {
+            const response = await fetch('/api/gemini-proxy', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
@@ -729,7 +729,7 @@
             }
             
             try {
-                const response = await fetch('/.netlify/functions/youtube-proxy', {
+                const response = await fetch('/api/youtube-proxy', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -946,7 +946,7 @@ Sadece JSON döndür, başka açıklama ekleme.`;
             
             try {
                 addLog(`${source} için "${query}" aranıyor...`, 'info');
-                const response = await fetch(`/.netlify/functions/media-proxy?source=${source}&query=${encodeURIComponent(query)}&per_page=12`);
+                const response = await fetch(`/api/media-proxy?source=${source}&query=${encodeURIComponent(query)}&per_page=12`);
                 
                 if (!response.ok) throw new Error('Medya arama hatası');
                 

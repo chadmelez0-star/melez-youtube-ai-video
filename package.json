@@ -1,0 +1,13 @@
+{
+  "name": "melez-youtube-ai",
+  "version": "1.0.0",
+  "description": "YouTube AI Viral Video Generator - Gemini Edition",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "vercel": "^32.0.0"
+  }
+}
