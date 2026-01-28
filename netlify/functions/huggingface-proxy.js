@@ -40,7 +40,6 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Hugging Face yanıtını Gemini formatına çevir
     const formattedResponse = {
       candidates: [{
         content: {
