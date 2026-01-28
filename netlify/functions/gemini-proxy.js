@@ -34,7 +34,7 @@ exports.handler = async (event, context) => {
     
     for (const model of models) {
       try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
         
         const response = await fetch(url, {
           method: 'POST',
@@ -76,3 +76,4 @@ exports.handler = async (event, context) => {
     };
   }
 };
+
