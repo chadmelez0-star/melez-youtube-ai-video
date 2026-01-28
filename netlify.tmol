@@ -1,0 +1,30 @@
+[build]
+  functions = "netlify/functions"
+  publish = "."
+
+# Redirect rules
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Function configuration
+[functions]
+  node_bundler = "esbuild"
+  
+# Environment variables (local development)
+[dev]
+  command = "npx serve"
+  port = 8888
+  targetPort = 3000
+  publish = "."
+  autoLaunch = true
