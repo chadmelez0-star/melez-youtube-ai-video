@@ -11,11 +11,8 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    // Gelen veriyi parse et
     const body = JSON.parse(event.body || '{}');
-    const { apiKey, prompt, model = 'gemini-pro' } = body;
-    
-    console.log('Gelen veri:', { apiKey: apiKey ? 'VAR' : 'YOK', prompt: prompt ? 'VAR' : 'YOK' });
+    const { apiKey, prompt } = body;
     
     if (!apiKey || !prompt) {
       return { 
@@ -25,36 +22,53 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Doğru URL - v1 ve gemini-pro
-    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`;
+    // DENEYEN MODEL ADLARI (sırayla dene)
+    const models = [
+      'gemini-1.5-flash-latest',
+      'gemini-1.5-flash',
+      'gemini-1.5-pro-latest',
+      'gemini-1.0-pro-latest'
+    ];
     
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 2048
+    let lastError = null;
+    
+    for (const model of models) {
+      try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: {
+              temperature: 0.7,
+              maxOutputTokens: 2048
+            }
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          return { statusCode: 200, headers, body: JSON.stringify(data) };
         }
-      })
-    });
-
-    const data = await response.json();
-    console.log('Gemini yanıtı:', JSON.stringify(data).slice(0, 200));
-    
-    if (!response.ok) {
-      return { 
-        statusCode: response.status, 
-        headers, 
-        body: JSON.stringify({ error: data.error?.message || 'Gemini API error' }) 
-      };
+        
+        lastError = await response.text();
+        
+      } catch (e) {
+        lastError = e.message;
+        continue; // Sonraki modeli dene
+      }
     }
-
-    return { statusCode: 200, headers, body: JSON.stringify(data) };
     
+    // Hiçbiri çalışmadı
+    return { 
+      statusCode: 500, 
+      headers, 
+      body: JSON.stringify({ error: 'No working model found. Last error: ' + lastError }) 
+    };
+
   } catch (error) {
-    console.log('Hata:', error.message);
     return { 
       statusCode: 500, 
       headers, 
