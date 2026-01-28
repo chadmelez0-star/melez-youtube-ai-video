@@ -21,7 +21,7 @@ exports.handler = async (event, context) => {
       };
     }
 
-    const response = await fetch(`https://router.huggingface.co/hf-inference/models/${model}`, {
+    const response = await fetch(`https://api-inference.huggingface.co/models/${model}`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
@@ -58,4 +58,5 @@ exports.handler = async (event, context) => {
     };
   }
 };
+
 
