@@ -16,7 +16,7 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    const { apiKey, prompt, model = 'gemini-pro' } = JSON.parse(event.body);
+    const { apiKey, prompt, model = 'gemini-1.5-flash' } = JSON.parse(event.body);
     
     if (!apiKey || !prompt) {
       return { 
@@ -59,3 +59,4 @@ exports.handler = async (event, context) => {
   }
 
 };
+
