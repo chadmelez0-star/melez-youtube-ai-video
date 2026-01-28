@@ -1,7 +1,7 @@
 // vercel.json
 {
   "version": 2,
-  "name": "melez-pro-studio",
+  "name": "melez-ai-video",
   "builds": [
     { "src": "index.html", "use": "@vercel/static" }
   ],
